@@ -5,7 +5,7 @@ Welcome to the repository for the Stay Woke! ACM Project!
 To build an application that informs and educates users on the current political landscape.
 
 ## MVP
-  - A web application that displays political data in form of charts or necessary visualization. Data should be sourced from an API.
+  - A web application that displays political data in the form of charts or necessary visualization. Data should be sourced from an API.
 
 ## Tools
 ### For Web Development
@@ -17,7 +17,7 @@ To build an application that informs and educates users on the current political
 ### Web Development
 > Note: It is important that both frontend and backend teams understand the basics of HTML5, CSS3, & JavaScript before moving onto the frameworks below.
 
-  - Full Stack Coures: [Learn Here](https://www.udemy.com/the-web-developer-bootcamp/)
+  - Full Stack Course: [Learn Here](https://www.udemy.com/the-web-developer-bootcamp/)
   - Learn Nodejs: [Learn Here](https://youtu.be/RLtyhwFtXQA)
   - Learn React: [Learn Here](https://youtu.be/6Ied4aZxUzc)
   - Learn HTML/CSS: [Learn Here](https://youtu.be/kMT54MPz9oE)
