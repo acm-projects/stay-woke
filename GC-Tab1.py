@@ -7,9 +7,10 @@ colors = ['#ff9999','#66b3ff','#99ff99']
 
 
 fig, ax1 = plt.subplots()
-
-ax1.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%',
+ax1.pie(sizes, colors=colors, autopct='%1.1f%%',
         shadow=False, startangle = 90)
+patches, texts = plt.pie(sizes, colors=colors, shadow=True, startangle=90)
 
-ax1.axis('equal')  
+ax1.axis('equal')
+plt.legend(patches, labels, loc="best")  
 plt.show()
