@@ -1,0 +1,19 @@
+{
+  "name": "stay-woke",
+  "version": "1.0.0",
+  "description": "Welcome to the repository for the Stay Woke! ACM Project!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acm-projects/stay-woke.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/acm-projects/stay-woke/issues"
+  },
+  "homepage": "https://github.com/acm-projects/stay-woke#readme"
+}
