@@ -22,12 +22,13 @@ const nytUrl = source + articleTopic + nytKey;
 app.listen(port, () => {
 		
 	console.log(`listening affectionately on ${port}`);
+	nyt();
 	guardian();
 
 });
 
-async function nyt(){
-	await request({url: nytUrl, json: true}, (error, response, body) => {
+function nyt(){
+	request({url: nytUrl, json: true}, (error, response, body) => {
 
 		if(error){
 			console.log('error:', error); // Print the error if one occurred
@@ -36,11 +37,14 @@ async function nyt(){
 			console.log(body)
 			const data = response.body.response.docs;
 			const links = [];
+			const headlines = [];
 			data.forEach((article) => {
 				links.push(article.web_url);
+				headlines.push(article.headline.main);
 			})
 			
 			console.log(links)
+			console.log(headlines)
 		}
 	});
 }
