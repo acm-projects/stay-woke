@@ -13,10 +13,10 @@ const gQuery = 'q=debate%20AND%20economy&tag=politics/politics&from-date=2014-01
 const url = gContent + gQuery + gKey
 
 const nytKey = 'api-key=XVQV1pgzfOh29l92vJSdJ62ExS0K5clZ';
-const source = 'https://api.nytimes.com/svc/search/v2/articlesearch.json?'
-const articleTopic = 'q=election&'
+const nytContent = 'https://api.nytimes.com/svc/search/v2/articlesearch.json?'
+const nytQuery = 'q=election&'
 
-const nytUrl = source + articleTopic + nytKey;
+const nytUrl = nytContent + nytQuery + nytKey;
 
 // Set up the server
 app.listen(port, () => {
