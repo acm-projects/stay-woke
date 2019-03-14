@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/acm-projects/stay-woke/issues"
   },
+  "homepage": "https://github.com/acm-projects/stay-woke#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "request": "^2.88.0"
+  }
   "homepage": "https://github.com/acm-projects/stay-woke#readme"
 }

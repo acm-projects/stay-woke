@@ -23,6 +23,7 @@ app.listen(port, () => {
 		
 	console.log(`listening affectionitaly on ${port}`);
 	articleResult = nyt();
+
 	console.log(nyt());
 	guardian();
 
@@ -30,7 +31,7 @@ app.listen(port, () => {
 
 async function nyt(){
 	await request({url: nytUrl, json: true}, (error, response, body) => {
-		
+
 		if(error){
 			console.log('error:', error); // Print the error if one occurred
 			return
