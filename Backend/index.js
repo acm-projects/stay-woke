@@ -16,7 +16,11 @@ const nytKey = 'api-key=XVQV1pgzfOh29l92vJSdJ62ExS0K5clZ';
 const source = 'https://api.nytimes.com/svc/search/v2/articlesearch.json?'
 const articleTopic = 'q=election&'
 
+<<<<<<< HEAD
 const nytUrl = source + articleTopic + nytKey;
+=======
+const url = source + articleTopic + nytKey;
+>>>>>>> parent of 9dde40a... change variable names
 
 // Set up the server
 app.listen(port, () => {
@@ -42,8 +46,15 @@ async function nyt(){
 }
 
 function guardian(){
-	request({ url: url, json: true }, (error, response) => {
-		const gData = response.body
-		log(gData)
-	  })
+	request({ url : url, json : true }, (error, response) => {
+    const gData = response.body.response
+    const gResults = gData.results
+    let gUrls = []
+  
+    gResults.forEach((article) => {
+      gUrls.push(article.webTitle)
+    })
+    
+    log(gUrls)
+  })
 }
