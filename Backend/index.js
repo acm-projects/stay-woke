@@ -21,10 +21,7 @@ const nytUrl = source + articleTopic + nytKey;
 // Set up the server
 app.listen(port, () => {
 		
-	console.log(`listening affectionitaly on ${port}`);
-	articleResult = nyt();
-
-	console.log(nyt());
+	console.log(`listening affectionately on ${port}`);
 	guardian();
 
 });
@@ -36,6 +33,7 @@ async function nyt(){
 			console.log('error:', error); // Print the error if one occurred
 			return
 		} else {
+			console.log(body)
 			const data = response.body.response.docs;
 			const links = [];
 			data.forEach((article) => {
