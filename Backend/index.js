@@ -16,16 +16,12 @@ const nytKey = 'api-key=XVQV1pgzfOh29l92vJSdJ62ExS0K5clZ';
 const source = 'https://api.nytimes.com/svc/search/v2/articlesearch.json?'
 const articleTopic = 'q=election&'
 
-<<<<<<< HEAD
 const nytUrl = source + articleTopic + nytKey;
-=======
-const url = source + articleTopic + nytKey;
->>>>>>> parent of 9dde40a... change variable names
 
 // Set up the server
 app.listen(port, () => {
 		
-	console.log(`listening affectionitaly on ${port}`);
+	console.log(`listening affectionately on ${port}`);
 	articleResult = nyt();
 
 	console.log(nyt());
