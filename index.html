@@ -4,13 +4,17 @@
 <style>
 
 .rectangle {
-	fill:paleturquoise;
+	fill:rgb(89, 115, 233);
 }
 .rectangle:hover {
-	fill:rgba(34, 90, 209, 0.863);
+	fill:rgba(163, 208, 235, 0.863);
 }
 .axis {
   font: 15px sans-serif;
+}
+
+body {
+	background-color: #000000;
 }
 
 .axis path,
@@ -19,12 +23,14 @@
   stroke: #000;
   shape-rendering: crispEdges;
 }
+
 </style>
 </head>
 <body>
 <div></div>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script>
+
 
 var margin = {top: 150, right: 180, bottom: 100, left: 200},
     width = 960 - margin.left - margin.right,
@@ -47,12 +53,14 @@ d3.csv("Table1.csv", function(error, data){
 		});
 	var selection = elements[0];
 
+	
 	var y = d3.scale.linear()
 			.domain([0, d3.max(data, function(d){
 				return +d[selection];
 			})])
 			.range([height, 0]);
 
+	
 	var x = d3.scale.ordinal()
 			.domain(data.map(function(d){return d.Opinion;}))
 			.rangeBands([0, width]);
@@ -103,7 +111,7 @@ d3.csv("Table1.csv", function(error, data){
 		.enter()
 		.append("rect")
 		.attr("class","rectangle")
-		.attr("width", width/data.length)
+		.attr("width", width/data.length / 1.1)
 		.attr("height", function(d){
 			return height - y(+d[selection]);
 		})
@@ -116,7 +124,8 @@ d3.csv("Table1.csv", function(error, data){
 		.append("title")
 		.text(function(d){
 			return d.Opinion + " : " + d[selection];
-		});
+		})
+		;
 
 	svg.append("text")
     .attr("class", "y axis")
@@ -126,6 +135,8 @@ d3.csv("Table1.csv", function(error, data){
     .attr("transform", "rotate(-90)")
 		.text("Percentage")
 		.style("font-size", "20px");
+
+	svg.selectAll("text").attr("fill", "white");
 
 	var selector = d3.select("#drop")
     	.append("select")
