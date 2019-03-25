@@ -1,33 +1,43 @@
-.App {
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background-color: black;
+}
+
+h1 {
   text-align: center;
+  border-bottom: 3px solid white;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+h2 {
+  text-align:center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+#header { /* Stay woke title */
+  font-family: Futura, Trebuchet MS, Arial, sans-serif;
+  font-size: 30px;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+#date {
+  font-size: 20px;
+  font-family: Futura, Trebuchet MS, Arial, sans-serif;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#links {
+  font-size: 20px;
+  font-family: Futura, Trebuchet MS, Arial, sans-serif;
+  color: white;
+  text-align: center;
+}
+
+
+body {
+  color: white;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
 }
