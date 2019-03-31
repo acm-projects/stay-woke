@@ -6,6 +6,8 @@ import GunControl from './components/pages/GunControl';
 import HealthCare from './components/pages/HealthCare';
 import Immigration from './components/pages/Immigration';
 import Pages from './components/layout/pages';
+import data from './components/data/data';
+import Articlebox from './components/layout/articlebox';
 
 class App extends Component {
   render() {
@@ -18,6 +20,7 @@ class App extends Component {
             <React.Fragment>
               <Header />
               <Pages />
+              <Articlebox />
             </React.Fragment>
           )} />
           
@@ -26,6 +29,8 @@ class App extends Component {
           <Route path="/healthcare" component={HealthCare} />
 
           <Route path="/immigration" component={Immigration} />
+
+          <Route path="/data" component={data} />
         </div>  
       </Router>
       

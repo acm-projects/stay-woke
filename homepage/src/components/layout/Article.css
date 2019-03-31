@@ -1,0 +1,29 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    font-family: Futura, Trebuchet MS, Arial, sans-serif;
+  }
+
+
+  #component {
+    border: 3px;
+    border-style: solid;
+    border-color: white;
+    word-wrap: break-word;
+    width: 513px;
+    height: 161px;
+  }
+
+  #text {
+    border-color: white;
+    word-wrap: break-word;
+    width: 322px;
+  }
+
+  img {
+      height: 161px;
+      width: 181px;
+      border-radius: 25px;
+  }

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+<style>
+
+.rectangle {
+	fill:rgb(89, 115, 233);
+}
+.rectangle:hover {
+	fill:rgba(163, 208, 235, 0.863);
+}
+.axis {
+  font: 15px sans-serif;
+}
+
+body {
+	background-color: #000000;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+</style>
+</head>
+<body>
+<div></div>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+
+
+var margin = {top: 150, right: 180, bottom: 100, left: 200},
+    width = 960 - margin.left - margin.right,
+    height = 600 - margin.top - margin.bottom;
+
+var svg = d3.select("body").append("svg")
+	.attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+	.append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.csv("Table1.csv", function(error, data){
+
+	// filter year
+	var data = data.filter(function(d){return d.Year == '2018';});
+	// Get every column value
+	var elements = Object.keys(data[0])
+		.filter(function(d){
+			return ((d != "Year") & (d != "Opinion"));
+		});
+	var selection = elements[0];
+
+	
+	var y = d3.scale.linear()
+			.domain([0, d3.max(data, function(d){
+				return +d[selection];
+			})])
+			.range([height, 0]);
+
+	
+	var x = d3.scale.ordinal()
+			.domain(data.map(function(d){return d.Opinion;}))
+			.rangeBands([0, width]);
+
+
+	var xAxis = d3.svg.axis()
+		.scale(x)
+			.orient("bottom");
+			
+	var yAxis = d3.svg.axis()
+		.scale(y)
+			.orient("left");
+	
+	svg.append("text")
+    .attr("dx", width/2)
+		.attr("y", -50)
+		.attr("class", "x axis")
+		.style ("font-size", "18px")
+    .style("text-anchor", "middle")
+		.text("Do you think there should or should not be a law that would ban the possession of handguns?")
+
+	svg.append("g")
+    	.attr("class", "x axis")
+    	.attr("transform", "translate(0," + height + ")")
+    	.call(xAxis)
+    	.selectAll("text")
+			.style("font-size", "15px")
+				.style("text-anchor", "end")
+				.attr("dx", "1.0em")
+      	.attr("dy", "1.5em")
+				.attr("transform", "rotate(0)" );
+				
+	svg.append("text")   
+			.attr("class", "x axis")
+			.style("text-anchor", "middle")
+			.style("font-size", "20px")
+			.attr("dx", width * 0.5)
+			.attr("dy", height + 60)
+      .text("Response");
+
+
+ 	svg.append("g")
+    	.attr("class", "y axis")
+    	.call(yAxis);
+
+	svg.selectAll("rectangle")
+		.data(data)
+		.enter()
+		.append("rect")
+		.attr("class","rectangle")
+		.attr("width", width/data.length / 1.1)
+		.attr("height", function(d){
+			return height - y(+d[selection]);
+		})
+		.attr("x", function(d, i){
+			return (width / data.length) * i ;
+		})
+		.attr("y", function(d){
+			return y(+d[selection]);
+		})
+		.append("title")
+		.text(function(d){
+			return d.Opinion + " : " + d[selection];
+		})
+		;
+
+	svg.append("text")
+    .attr("class", "y axis")
+		.attr("text-anchor", "end")
+		.attr( "dx", -100)
+    .attr("dy", -50)
+    .attr("transform", "rotate(-90)")
+		.text("Percentage")
+		.style("font-size", "20px");
+
+	svg.selectAll("text").attr("fill", "white");
+
+	var selector = d3.select("#drop")
+    	.append("select")
+    	.attr("id","dropdown")
+    	.on("change", function(d){
+        	selection = document.getElementById("dropdown");
+
+        	y.domain([0, d3.max(data, function(d){
+				return +d[selection.value];})]);
+
+        	yAxis.scale(y);
+
+        	d3.selectAll(".rectangle")
+           		.transition()
+	            .attr("height", function(d){
+					return height - y(+d[selection.value]);
+				})
+				.attr("x", function(d, i){
+					return (width / data.length) * i ;
+				})
+				.attr("y", function(d){
+					return y(+d[selection.value]);
+				})
+           		.ease("linear")
+           		.select("title")
+           		.text(function(d){
+           			return d.Opinion + " : " + d[selection.value];
+           		});
+      
+           	d3.selectAll("g.y.axis")
+           		.transition()
+           		.call(yAxis);
+
+         });
+
+    selector.selectAll("option")
+      .data(elements)
+      .enter().append("option")
+      .attr("value", function(d){
+        return d;
+      })
+      .text(function(d){
+        return d;
+			})
+			
+		
+
+
+});
+
+</script>
+</body>
