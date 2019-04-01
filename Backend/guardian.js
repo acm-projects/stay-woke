@@ -54,6 +54,5 @@ function search (searchTerms) {
 
 
 module.exports = {
-    getUrls: getUrls,
     getPage: getPage
 }
