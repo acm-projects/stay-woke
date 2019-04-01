@@ -10,11 +10,9 @@ const query = 'q=debate%20AND%20economy&tag=politics/politics&from-date=2014-01-
 const log = console.log
 const url = content + query + key
 
-log(currDate)
-
 function getUrls(apiUrl) {
-    if(true) {
-
+    if(apiUrl === null) {
+        apiUrl = url
     }
 
 	request({ url : url, json : true }, (error, response) => {
