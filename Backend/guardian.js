@@ -36,7 +36,7 @@ function getTags (url) {
     pyShell.send(url)
 
     pyShell.on('message', (message) => {
-        log(message)
+        log('|' + message + '|')
     })
 
     pyShell.end((err) => {
