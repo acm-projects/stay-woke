@@ -13,6 +13,6 @@ app.listen(port, () => {
 	console.log(`listening affectionately on ${port}`);
 	//nyt();
 	//guardian.getUrls();
-	guardian.getTags('https://open-platform.theguardian.com/documentation/tag')
+	guardian.getPage('https://open-platform.theguardian.com/documentation/tag')
 });
 

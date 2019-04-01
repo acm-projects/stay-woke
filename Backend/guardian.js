@@ -1,6 +1,5 @@
 const request = require('request')
 const {PythonShell} = require('python-shell')
-const pyShell = new PythonShell('tagScrapper.py')
 
 const key = '14344d2d-2666-4857-96f8-18d26eed83bd'
 const content = 'https://content.guardianapis.com/search?'
@@ -32,17 +31,18 @@ function getUrls (apiUrl) {
   })
 }
 
-function getTags (url) {
-    pyShell.send(url)
+function getPage (url) {
+    let options = {
+        mode: 'text',
+        args: [url]
+    } 
 
-    pyShell.on('message', (message) => {
-        log('|' + message + '|')
-    })
-
-    pyShell.end((err) => {
+    PythonShell.run('tagScrapper.py', options, (err, results) => {
         if (err) {
             throw err
         }
+
+        log(results)
     })
 }
 
@@ -52,7 +52,8 @@ function search (searchTerms) {
     })
 }
 
+
 module.exports = {
     getUrls: getUrls,
-    getTags: getTags
+    getPage: getPage
 }
