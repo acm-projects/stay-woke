@@ -19,25 +19,24 @@ def getTags():
     for i in range(1, 7):
         for header in soup.findAll('h' + str(i)):
             text = header.getText().strip()
-            if text in keyWords:
-                wordCount[text] = wordCount.get(text, 0) + 1
+            #if text in keyWords:
+            wordCount[text] = wordCount.get(text, 0) + 1
 
     for paragraph in soup.findAll('p'):
         text = paragraph.getText().strip()
-        if text in keyWords:
-            wordCount[text] = wordCount.get(text, 0) + 1
+        #if text in keyWords:
+        wordCount[text] = wordCount.get(text, 0) + 1
 
     for link in soup.findAll('a'):
         text = link.getText().strip()
-        if text in keyWords:
-            wordCount[text] = wordCount.get(text, 0) + 1
+        #if text in keyWords:
+        wordCount[text] = wordCount.get(text, 0) + 1
 
-    for key in wordCount.keys():
-        tags.append(wordCount[key])
+    tags = sorted((value, key) for (key, value) in wordCount.items())
+    tags.reverse()
 
-    tags.sort()
-
-    return tags
+    for tag in tags:
+        print(tag[1])
 
 if __name__ == '__main__':
     getTags()
