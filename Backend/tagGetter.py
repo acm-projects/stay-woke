@@ -2,8 +2,8 @@ import requests, sys
 from bs4 import BeautifulSoup
 
 def getTags():
-    url = sys.stdin.readlines()
-    page = requests.get(url)
+    url = sys.stdin.readlines()[0]
+    page = requests.get(url.strip())
     soup = BeautifulSoup(page.text, 'html.parser')
 
     tags = []

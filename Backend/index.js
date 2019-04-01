@@ -13,8 +13,6 @@ app.listen(port, () => {
 	console.log(`listening affectionately on ${port}`);
 	//nyt();
 	//guardian.getUrls();
-	log('start')
 	guardian.getTags('https://google.com')
-	log('end')
 });
 
