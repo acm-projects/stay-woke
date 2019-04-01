@@ -10,7 +10,6 @@ def getTags():
 
     tags = []
 
-    headers = []
     for i in range(1, 7):
         for header in soup.findAll('h' + str(i)):
             text = header.getText().replace('\n', '')
@@ -20,7 +19,6 @@ def getTags():
         text = paragraph.getText()
         wordCount[text] = wordCount.get(text, 0) + 1
 
-    links = []
     for link in soup.findAll('a'):
         text = link.getText()
         wordCount[text] = wordCount.get(text, 0) + 1
