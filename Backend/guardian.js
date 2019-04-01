@@ -1,6 +1,6 @@
 const request = require('request')
 const {PythonShell} = require('python-shell')
-const pyShell = new PythonShell('tagGetter.py')
+const pyShell = new PythonShell('tagScrapper.py')
 
 const key = '14344d2d-2666-4857-96f8-18d26eed83bd'
 const content = 'https://content.guardianapis.com/search?'
