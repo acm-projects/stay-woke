@@ -1,7 +1,8 @@
-import requests
+import requests, sys
 from bs4 import BeautifulSoup
 
-def getTags(url):
+def getTags():
+    url = sys.stdin.readlines()
     page = requests.get(url)
     soup = BeautifulSoup(page.text, 'html.parser')
 
@@ -9,3 +10,6 @@ def getTags(url):
     print (soup)
 
     return tags
+
+if __name__ == '__main__':
+    getTags()
