@@ -13,25 +13,24 @@ const query = 'q=debate%20AND%20economy&tag=politics/politics&from-date=2014-01-
 const log = console.log
 const defaultUrl = content + query + key
 
-function getUrls (apiUrl) {
-    if (apiUrl === null) {
+function getUrls (apiUrl, callback) {
+    if (apiUrl == null) {
         apiUrl = defaultUrl
     }
 
-	request({ url : url, json : true }, (error, response) => {
-    const data = response.body.response
-    const results = data.results
-    let urls = []
-  
-    results.forEach((result) => {
-      urls.push(result.webUrl)
-    })
-    
-    return urls
+	request({ url : apiUrl, json : true }, (error, response) => {
+        if (error) {
+            throw error
+        }
+
+
+        const data = response.body.response
+        callback(data.results)
+        
   })
 }
 
-function getPage (url) {
+function getTags (url, callback) {
     let options = {
         mode: 'text',
         args: [url]
@@ -41,9 +40,9 @@ function getPage (url) {
         if (err) {
             throw err
         }
-
-        log(results)
-    })
+        
+        callback(results)
+    })    
 }
 
 function search (searchTerms) {
@@ -52,7 +51,25 @@ function search (searchTerms) {
     })
 }
 
+function getPages () {
+    getUrls(null, (results) => {
+        pages = []
+        results.forEach((result) => {
+            url = result.webUrl
+            getTags(url, (tags) => {
+                pages.push({
+                    Title: result.webTitle,
+                    Author: '',
+                    Link: url,
+                    Tags: tags
+                })
+
+                log(pages)
+            })
+        })
+    })
+}
 
 module.exports = {
-    getPage: getPage
+    getPages: getPages
 }

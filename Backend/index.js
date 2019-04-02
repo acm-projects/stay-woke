@@ -12,7 +12,7 @@ app.listen(port, () => {
 		
 	console.log(`listening affectionately on ${port}`)
 	//nyt()
-	guardian.getPage('https://open-platform.theguardian.com/documentation/tag')
+	log(guardian.getPages())
 });
 
 
