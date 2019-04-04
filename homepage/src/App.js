@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import Header from './components/layout/Header';
+import DataVis from './components/pages/DataVis';
 import GunControl from './components/pages/GunControl';
 import HealthCare from './components/pages/HealthCare';
 import Immigration from './components/pages/Immigration';
