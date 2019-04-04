@@ -8,6 +8,7 @@ function data() {
     <div>
       <Header />
       <h2>Data Visualization</h2>
+      <p>This is the Data Visualization page</p>
       
     </div>
   )
