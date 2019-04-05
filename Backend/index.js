@@ -12,8 +12,10 @@ app.listen(port, () => {
 		
 	console.log(`listening affectionately on ${port}`)
 	//nyt()
-	log(guardian.getPages())
-});
+	guardian.getPages().then((articles) => {
+		log(articles)
+	})
+})
 
 
 // [

@@ -13,36 +13,43 @@ const query = 'q=debate%20AND%20economy&tag=politics/politics&from-date=2014-01-
 const log = console.log
 const defaultUrl = content + query + key
 
-function getUrls (apiUrl, callback) {
-    if (apiUrl == null) {
-        apiUrl = defaultUrl
-    }
-
-	request({ url : apiUrl, json : true }, (error, response) => {
-        if (error) {
-            throw error
+async function getUrls (apiUrl) {
+    return new Promise((resolve, reject) => {
+        if (apiUrl == null) {
+            apiUrl = defaultUrl
         }
-
-
-        const data = response.body.response
-        callback(data.results)
-        
-  })
+    
+        request({ url : apiUrl, json : true }, (err, response) => {
+            if (err) {
+                reject(err)
+            }
+    
+            const data = response.body.response
+    
+            resolve(data.results)
+            //return data.results
+        })
+    })
+    
 }
 
-function getTags (url, callback) {
+function getTags (url) {
     let options = {
         mode: 'text',
         args: [url]
     } 
 
-    PythonShell.run('tagScrapper.py', options, (err, results) => {
-        if (err) {
-            throw err
-        }
-        
-        callback(results)
-    })    
+    return new Promise((resolve, reject) => {
+        PythonShell.run('tagScrapper.py', options, (err, results) => {
+            if (err) {
+                 reject(err)
+            }
+            
+            resolve(results)
+            //return results
+        })   
+    })
+     
 }
 
 function search (searchTerms) {
@@ -51,23 +58,33 @@ function search (searchTerms) {
     })
 }
 
-function getPages () {
-    getUrls(null, (results) => {
-        pages = []
-        results.forEach((result) => {
-            url = result.webUrl
-            getTags(url, (tags) => {
-                pages.push({
-                    Title: result.webTitle,
-                    Author: '',
-                    Link: url,
-                    Tags: tags
-                })
+async function getAllTags(results) {
+    let pages = []
 
-                log(pages)
-            })
+    for (let i = 0; i < results.length; i++) {
+        let result = results[i]
+        let tags = await getTags(result.webUrl)
+        pages.push({
+            title: result.webTitle,
+            author: '',
+            link: result.webUrl,
+            tags: tags
         })
-    })
+    }
+
+    return pages
+}
+
+async function getPages () {
+
+    try {
+        let urls = await getUrls(null)
+        let pages = await getAllTags(urls)
+        return pages
+    }
+    catch (err) {
+        return err
+    }
 }
 
 module.exports = {
