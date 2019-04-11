@@ -1,7 +1,7 @@
 const request = require('request')
 const {PythonShell} = require('python-shell')
 
-const key = '14344d2d-2666-4857-96f8-18d26eed83bd'
+const key = '&api-key=14344d2d-2666-4857-96f8-18d26eed83bd'
 const content = 'https://content.guardianapis.com/search?'
 let tags = ''
 
@@ -9,7 +9,7 @@ let currDate = new Date(Date.now())
 currDate = new Date(currDate.getTime() - (currDate.getTimezoneOffset() * 60000))
 currDate = currDate.toISOString().substring(0, 10)
 
-const query = 'q=debate%20AND%20economy&tag=politics/politics&from-date=2014-01-01&api-key='
+const query = 'show-references=author'
 const log = console.log
 const defaultUrl = content + query + key
 
@@ -27,7 +27,6 @@ async function getUrls (apiUrl) {
             const data = response.body.response
     
             resolve(data.results)
-            //return data.results
         })
     })
     
@@ -44,9 +43,10 @@ function getTags (url) {
             if (err) {
                  reject(err)
             }
+
+            //log(results)
             
             resolve(results)
-            //return results
         })   
     })
      
@@ -59,20 +59,46 @@ function search (searchTerms) {
 }
 
 async function getAllTags(results) {
-    let pages = []
-
+    let articles = []
+    
+    let tags = []
+    let promises = []
     for (let i = 0; i < results.length; i++) {
         let result = results[i]
-        let tags = await getTags(result.webUrl)
-        pages.push({
-            title: result.webTitle,
-            author: '',
-            link: result.webUrl,
-            tags: tags
+        promises[i] = new Promise((resolve, reject) => {
+            resolve(getTags(result.webUrl))
         })
     }
 
-    return pages
+    tags = await Promise.all(promises)
+    let onNames = false
+    
+    for (let i = 0; i < results.length; i++) {
+        let tagsLength
+        if (tags[i] != null) {
+            tagsLength = tags[i][0]
+        }
+        else {
+            continue
+        }
+        
+        let tagList = tags[i].splice(1, 1 + tagsLength)
+        let nameList
+
+        if (!(1 + tagsLength > tags.length)) {
+            nameList = tags[i].splice(1 + tagsLength)
+        }
+        
+        
+        articles.push({
+            author: '',
+            title: results[i].webTitle,
+            link: results[i].webUrl,
+            tags: tagList,
+            names: nameList
+        })
+    }
+    return articles
 }
 
 async function getPages () {

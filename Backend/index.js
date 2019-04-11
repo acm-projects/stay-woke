@@ -14,7 +14,7 @@ app.listen(port, () => {
 	//nyt()
 	guardian.getPages().then((articles) => {
 		log(articles)
-	})
+	}).catch((err) => log(err))
 })
 
 
